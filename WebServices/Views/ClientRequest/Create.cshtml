@@ -1,0 +1,126 @@
+﻿@model ClientRequestView
+@inject UserManager<ApplicationUser> userManager
+@inject SignInManager<ApplicationUser> signInManager
+
+
+<style>
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: .75em;
+        padding-right: .75em;
+    }
+
+    .card-registration .select-arrow {
+        top: 13px;
+    }
+    p{background-color:antiquewhite}
+</style>
+
+<section class="h-100 bg-dark">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                       
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-3 text-uppercase">طلب جديد -@ViewBag.Servicedetails</h3>
+                                <p class ="p-1">املأ النموذج أدناه لإرسال طلب المشاركة لهذه الخدمة</p>
+                                <form asp-action="Create" asp-controller="ClientRequest" method="post">
+                                  
+                                
+                                    <input type="hidden" asp-for="ServiceId" value="@ViewBag.ServiceId" />
+                                    <input type="hidden" asp-for="ServiceDetailsId" value="@ViewBag.ServicedetailsId" />
+                                    <div class="row mb-9">
+                                       
+                                            <div class="col-md-6 mb-4">
+                                                <div data-mdb-input-init class="form-outline">
+                                                <label class="form-label" for="form3Example1m" > تاريخ الطلب </label>
+                                                    <input type="text" readonly value="@ViewBag.Date" asp-for="RequestDate">
+                                                     </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <div data-mdb-input-init class="form-outline">
+
+                                                    
+
+                                            </div>
+                                            </div>
+                                       
+                                    </div>
+
+                                    <input type="hidden" value="@((await userManager.GetUserAsync(User)).Id)" asp-for="ClientId">
+
+
+                                    <div class="row mb-9">
+                                        @if (signInManager.IsSignedIn(User))
+                                        {
+                                            <div class="col-md-6 mb-4">
+                                                <div data-mdb-input-init class="form-outline">
+                                                    <label class="form-label" for="form3Example1m" > البريد الالكتروني</label>
+                                                      <input disabled type="text" id="form3Example1m" class="form-control form-control-lg" value="@((await userManager.GetUserAsync(User)).Email)" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <div data-mdb-input-init class="form-outline">
+
+                                                    <label class="form-label" for="form3Exampl1n" > رقم الموبايل</label>
+
+                                                    <input disabled type="text" id="form3Example1n" class="form-control form-control-lg" value="@((await userManager.GetUserAsync(User)).PhoneNumber)" />
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example8">الاسم بالكامل</label>
+
+                                        <input type="text" id="form3Example8" class="form-control form-control-lg" asp-for="FullName" />
+                                    </div>
+
+                                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                                        <h6 class="mb-0 me-4">النوع: </h6>
+                                       
+                                        <div class="form-check form-check-inline mb-0 me-4">
+                                            <input class="form-check-input" type="radio" name="Gender" id="Gender"
+                                                   value="Femal" asp-for="Gender" />
+                                            <label class="form-check-label" for="femaleGender">Female</label>
+                                        </div>
+                                        <div class="form-check form-check-inline mb-0 me-4">
+                                            <input class="form-check-input" type="radio" name="Gender" id="Gender" asp-for="Gender"
+                                                   value="Male" />
+                                            <label class="form-check-label" for="femaleGender">Male</label>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label" for="form3Example97"> وصف الخدمة</label>
+
+                                        <input type="text" id="form3Example97" class="form-control form-control-lg" asp-for="Description" />
+                                    </div>
+
+                                    <div class="d-flex justify-content-end pt-3">
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg ms-2"> ارسال الطلب</button>
+                                    </div>
+
+                                </form>
+                                   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+                               
+                                
+
+
+

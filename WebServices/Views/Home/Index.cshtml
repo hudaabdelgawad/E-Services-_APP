@@ -1,0 +1,37 @@
+﻿@using Core.Dots
+
+@model ServiceItemDto
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+        
+<div class="row">
+    <div class="col-sm-12 p-4" >
+        @foreach (var i in Model.Services)
+        {
+            <input type="button" value=" @i.ServiceName" />
+        }
+    </div>
+    
+    @foreach (var item in Model.ServiceDetails) {
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                    <h5 class="card-title">@item.ServiceFeatures</h5>
+                    <p class="card-text">@item.Service.ServiceName</p>
+                   
+                   
+               
+                <a asp-controller="ClientRequest" asp-action="Create" asp-route-id="@item.Id" class="btn btn-warning">طلب الخدمة</a>
+            </div>
+        </div>
+    </div>}
+   
+</div>
+
+
+
